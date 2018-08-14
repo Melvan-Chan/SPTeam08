@@ -17,7 +17,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(100, 25, "SP Team 08"); // The size of the console
+Console g_Console(100, 25, "SP Team"); // The size of the console
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function

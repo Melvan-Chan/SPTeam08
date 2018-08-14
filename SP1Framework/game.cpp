@@ -6,8 +6,15 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+<<<<<<< HEAD
 using namespace std;
 
+=======
+#include <string>
+#include <fstream>
+
+using namespace std;
+>>>>>>> d84c80f468383b4a3e328f123599d716ad295d8e
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -20,7 +27,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(100, 25, "SP Team"); // The size of the console
+Console g_Console(100, 25, "SP Team 08"); // The size of the console
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -403,21 +410,41 @@ void renderGame()
 
 void renderMap()
 {
-    // Set up sample colours, and output shadings
-    const WORD colors[] = {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-    };
+	string line;
+	string current;
+	unsigned int column;
+	unsigned int row;
 
-    COORD c;
-    for (int i = 0; i < 12; ++i)
-    {
-        c.X = 5 * i;
-        c.Y = i + 1;
-        colour(colors[i]);
-        g_Console.writeToBuffer(c, 'c', colors[i]);
-		/*g_Console.writeToBuffer(c, " °±²Û", colors[i]);*/
-    }
+	ifstream GameMapFile;
+	GameMapFile.open("maeze.txt", ios::in);
+
+	COORD c = g_Console.getConsoleSize();
+	c.X = g_Console.getConsoleSize().X / 2 - 10;
+	c.Y = g_Console.getConsoleSize().Y / 2;
+	if (!GameMapFile)
+	{
+		g_Console.writeToBuffer(c, "Error 404: File not found", 0x01);
+	}
+	getline(GameMapFile, line);
+
+
+  //  // Set up sample colours, and output shadings
+  //  const WORD colors[] = {
+  //      0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+  //      0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+  //  };
+
+
+
+  //  COORD c;
+  //  for (int i = 0; i < 12; ++i)
+  //  {
+  //      c.X = 5 * i;
+  //      c.Y = i + 1;
+  //      colour(colors[i]);
+  //      g_Console.writeToBuffer(c, 'c', colors[i]);
+		///*g_Console.writeToBuffer(c, " °±²Û", colors[i]);*/
+  //  }
 }
 
 void renderCharacter()

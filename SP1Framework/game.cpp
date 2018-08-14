@@ -6,10 +6,13 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+using namespace std;
+
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+int		menu_item = 3;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -71,13 +74,14 @@ void shutdown( void )
 //--------------------------------------------------------------
 void getInput( void )
 {    
-    g_abKeyPressed[K_UP]     = isKeyPressed(0x57);//0x57 is W key
-    g_abKeyPressed[K_DOWN]   = isKeyPressed(0x53);//0x53 is S key
-    g_abKeyPressed[K_LEFT]   = isKeyPressed(0x41);//0x41 is A key
-    g_abKeyPressed[K_RIGHT]  = isKeyPressed(0x44);//0x44 is D key
+    g_abKeyPressed[K_UP]     = isKeyPressed(VK_UP);//0x57 is W key
+    g_abKeyPressed[K_DOWN]   = isKeyPressed(VK_DOWN);//0x53 is S key
+    g_abKeyPressed[K_LEFT]   = isKeyPressed(VK_LEFT);//0x41 is A key
+    g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);//0x44 is D key
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
 	g_abKeyPressed[K_NUMBER1] = isKeyPressed(0X31);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 }
 
 //--------------------------------------------------------------
@@ -132,9 +136,16 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-	//Vernons code
-    if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_GAME;
+	COORD c = g_Console.getConsoleSize();
+	renderSplashScreen();
+	if (menu_item == 0)
+		g_eGameState = S_GAME;
+	if (menu_item == 1)
+	{
+		c.X = 10;
+		c.Y = 8;
+		g_Console.writeToBuffer(c, "Story", 0x09);
+	}
 }
 
 void gameplay()         // gameplay logic
@@ -203,16 +214,185 @@ void clearScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
-    COORD c = g_Console.getConsoleSize();
-    c.Y /= 3;
-    c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "A game in 3 seconds", 0x03);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 20;
-    g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
+	double timer = (g_dElapsedTime * 66);
+	int x1 = 10;
+	static bool g_Pressed = false;
+	string line1 = "########  ######## ########  ##     ##  ######    ######   ######## ########";
+	string line2 = "##     ## ##       ##     ## ##     ## ##    ##  ##    ##  ##       ##     ##";
+	string line3 = "##     ## ##       ##     ## ##     ## ##        ##        ##       ##     ##";
+	string line4 = "##     ## ######   ########  ##     ## ##   #### ##   #### ######   ########";
+	string line5 = "##     ## ##       ##     ## ##     ## ##    ##  ##    ##  ##       ##   ##";
+	string line6 = "##     ## ##       ##     ## ##     ## ##    ##  ##    ##  ##       ##    ##";
+	string line7 = "########  ######## ########   #######   ######    ######   ######## ##     ##";
+	string line8 = "===============================================================By Proplaers============";
+	COORD c = g_Console.getConsoleSize();
+	c.X = x1;
+	c.Y = 3;
+	for (double i = 0.0; i < timer && i != 76.0; i++)
+	{
+		if (line1[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line1[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1;
+	c.Y = 4;
+	for (double i = 0.0; i < timer && i != 77.0; i++)
+	{
+		if (line2[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line2[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1;
+	c.Y = 5;
+	for (double i = 0.0; i < timer && i != 77.0; i++)
+	{
+		if (line3[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line3[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1;
+	c.Y = 6;
+	for (double i = 0.0; i < timer && i != 76.0; i++)
+	{
+		if (line4[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line4[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1;
+	c.Y = 7;
+	for (double i = 0.0; i < timer && i != 75.0; i++)
+	{
+		if (line5[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line5[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1;
+	c.Y = 8;
+	for (double i = 0.0; i < timer && i != 76.0; i++)
+	{
+		if (line6[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line6[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1;
+	c.Y = 9;
+	for (double i = 0.0; i < timer && i != 77.0; i++)
+	{
+		if (line7[i] == '#')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, 219, 0x06);
+		}
+		else if (line7[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+	}
+	c.X = x1 - 5;
+	c.Y = 10;
+	for (double i = 0.0; i < (timer + 20) && i != 87.0; i++)
+	{
+		if (line8[i] == '=')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, '=', 0x07);
+		}
+		else if (line8[i] == ' ')
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, ' ', 0x00);
+		}
+		else
+		{
+			c.X++;
+			g_Console.writeToBuffer(c, line8[i], 0x03);
+		}
+	}
+	c.Y = 14;
+	c.X = 45;
+	g_Console.writeToBuffer(c, "Start Game", 0x06);
+	c.Y = 15;
+	c.X = 45;
+	g_Console.writeToBuffer(c, "Story", 0x06);
+
+	if (g_Pressed == false)
+	{
+		c.X = 43;
+		c.Y = 14;
+		g_Console.writeToBuffer(c, "  ", 0x00);
+		c.Y = 14;
+		c.X = 43;
+		g_Console.writeToBuffer(c, ">");
+		if (g_abKeyPressed[K_ENTER])
+		{
+			menu_item = 0;
+		}
+	}
+	else // if boolean is true
+	{
+		c.X = 43;
+		c.Y = 15;
+		g_Console.writeToBuffer(c, "  ", 0x00);
+		c.Y = 15;
+		c.X = 43;
+		g_Console.writeToBuffer(c, ">");
+		if (g_abKeyPressed[K_ENTER])
+		{
+			menu_item = 1;
+		}
+	}
+	// Check what key is pressed and set boolean to true or false
+	if (g_abKeyPressed[K_DOWN] && c.Y != 11)
+	{
+		g_Pressed = true; // if press down key, set bool to true
+	}
+	if (g_abKeyPressed[K_UP] && c.Y != 10)
+	{
+		g_Pressed = false; // if press up key, set bool to false
+	}
 }
 
 void renderGame()

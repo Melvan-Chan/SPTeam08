@@ -1,5 +1,4 @@
 ﻿  game.cpp
-<<<<<<< HEAD
 d:\users\l533\documents\github\spteam08\sp1framework\game.cpp(233): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
 d:\users\l533\documents\github\spteam08\sp1framework\game.cpp(236): warning C4309: 'argument': truncation of constant value
 d:\users\l533\documents\github\spteam08\sp1framework\game.cpp(238): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
@@ -26,9 +25,3 @@ d:\users\l533\documents\github\spteam08\sp1framework\game.cpp(343): warning C424
 d:\users\l533\documents\github\spteam08\sp1framework\game.cpp(351): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
   SP1Framework.vcxproj -> D:\Users\l533\Documents\GitHub\SPTeam08\Debug\SP1Framework.exe
   SP1Framework.vcxproj -> D:\Users\l533\Documents\GitHub\SPTeam08\Debug\SP1Framework.pdb (Full PDB)
-=======
-d:\users\l533\desktop\sp\sp1framework\sp1framework\game.cpp(232): warning C4101: 'column': unreferenced local variable
-d:\users\l533\desktop\sp\sp1framework\sp1framework\game.cpp(233): warning C4101: 'row': unreferenced local variable
-  SP1Framework.vcxproj -> D:\Users\l533\Desktop\SP\SP1Framework\Debug\SP1Framework.exe
-  SP1Framework.vcxproj -> D:\Users\l533\Desktop\SP\SP1Framework\Debug\SP1Framework.pdb (Full PDB)
->>>>>>> d84c80f468383b4a3e328f123599d716ad295d8e

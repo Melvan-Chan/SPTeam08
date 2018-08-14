@@ -233,7 +233,7 @@ void renderMap()
 	unsigned int row;
 
 	ifstream GameMapFile;
-	GameMapFile.open("maze.txt", ios::in);
+	GameMapFile.open("maeze.txt", ios::in);
 
 	COORD c = g_Console.getConsoleSize();
 	c.X = g_Console.getConsoleSize().X / 2 - 10;
